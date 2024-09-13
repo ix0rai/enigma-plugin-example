@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.quiltmc'
+version = '0.0.1'
+
+repositories {
+    maven { url = "https://maven.quiltmc.org/repository/release/" }
+    // remove when ASM 9.8 is released
+    maven { url = "https://repository.ow2.org/nexus/content/repositories/snapshots/" }
+    mavenCentral()
+    maven { url = "https://maven.fabricmc.net/"}
+}
+
+configurations {
+    enigma
+}
+
+dependencies {
+    enigma(libs.bundles.enigma)
+}
+
+tasks.register("enigma", EnigmaExec)
+
+abstract class EnigmaExec extends JavaExec {
+    EnigmaExec() {
+        group 'mappings'
+        description 'Runs the number one best program.'
+
+        classpath project.configurations.enigma
+        mainClass.set 'org.quiltmc.enigma.gui.Main'
+
+        argumentProviders.add({ ->
+            [
+                    "--jar", "1.21.jar",
+                    "--mappings", "mappings",
+                    "-profile", "enigma_profile.json"
+            ]
+        } as CommandLineArgumentProvider)
+    }
+}

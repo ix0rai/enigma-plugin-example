@@ -1,0 +1,12 @@
+[versions]
+enigma = "2.4.2"
+enigma_plugin = "2.2.2"
+
+[libraries]
+enigma = { module = "org.quiltmc:enigma", version.ref = "enigma" }
+enigma_cli = { module = "org.quiltmc:enigma-cli", version.ref = "enigma" }
+enigma_swing = { module = "org.quiltmc:enigma-swing", version.ref = "enigma" }
+enigma_plugin = { module = "org.quiltmc:quilt-enigma-plugin", version.ref = "enigma_plugin" }
+
+[bundles]
+enigma = ["enigma", "enigma_cli", "enigma_swing", "enigma_plugin"]
